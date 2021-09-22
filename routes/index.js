@@ -3,6 +3,8 @@ var router = express.Router();
 const usersModel = require('./users');
 const passport = require('passport');
 const localStrategy = require('passport-local');
+const io = require('socket.io');
+// const users = require('./users');
 // const tweet = require('./tweet');
 
 passport.use(new localStrategy(usersModel.authenticate()));
@@ -41,7 +43,19 @@ router.post('/login',passport.authenticate('local',{
 })
 
 router.get('/profile',isLoggedIn,function(req,res){
-  res.render('profile');
+  usersModel.find()
+  .then(function(user){
+    // res.send(user);
+  res.render('profile',{user:user});
+  console.log(user);
+  })
+})
+
+router.get('/chat/:id',function(req,res){
+  usersModel.findOne({_id:req.params.id})
+  .then(function(user){
+    res.send(user);
+  })
 })
 
 function isLoggedIn(req,res,next){
@@ -57,5 +71,7 @@ router.get('/logout',function(req,res){
   req.logOut();
   res.redirect('/');
 })
+
+
 
 module.exports = router;

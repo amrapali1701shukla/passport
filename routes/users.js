@@ -8,6 +8,12 @@ const userSchema = mongoose.Schema({
   email:String,
   username:String,
   password:String,
+  chats:[
+    {
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'chat'
+  }
+]
 })
 
 userSchema.plugin(plm);

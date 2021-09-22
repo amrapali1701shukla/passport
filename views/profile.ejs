@@ -5,9 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/profile.css">
 </head>
 <body>
-    <h1>Profile Page</h1>
-    <a href="/logout">Log Me Out</a>
+    <div id="box">
+        <% user.forEach(function(val){ %>
+            <a href="/chat"><div  class="boxes">
+                <div class="circ"></div> 
+                <div class="chatbox">
+                    <a href="/profile"><%= val.name %></a>
+                    <a href=<%= '/chat/' + val._id %>>Message</a>
+                </div>  
+               </div></a>
+       <% }) %>
+
+
+    </div>
+    <script src="../socket.io.js"></script>
+<script src="../javascripts/script.js"></script>
 </body>
 </html>
